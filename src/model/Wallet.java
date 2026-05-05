@@ -1,6 +1,6 @@
-package violetmarket.model;
+package model;
 
-import violetmarket.exception.InsufficientFundsException;
+import exception.InsufficientFundsException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package violetmarket.enums;
+package enums;
 
 public enum ItemCategory {
     TEXTBOOKS,

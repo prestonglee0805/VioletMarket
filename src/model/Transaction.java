@@ -1,6 +1,6 @@
-package violetmarket.model;
+package model;
 
-import violetmarket.enums.PickupZone;
+import enums.PickupZone;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

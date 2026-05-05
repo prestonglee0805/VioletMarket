@@ -1,8 +1,8 @@
-package violetmarket.interfaces;
+package interfaces;
 
-import violetmarket.enums.ItemCategory;
-import violetmarket.enums.ItemCondition;
-import violetmarket.model.Listing;
+import enums.ItemCategory;
+import enums.ItemCondition;
+import model.Listing;
 
 import java.util.List;
 

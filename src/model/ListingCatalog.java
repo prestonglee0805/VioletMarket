@@ -1,8 +1,8 @@
-package violetmarket.model;
-import violetmarket.enums.ItemCategory;
-import violetmarket.enums.ItemCondition;
-import violetmarket.enums.ListingStatus;
-import violetmarket.interfaces.Searchable;
+package model;
+import enums.ItemCategory;
+import enums.ItemCondition;
+import enums.ListingStatus;
+import interfaces.Searchable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

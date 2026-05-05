@@ -1,8 +1,8 @@
-package violetmarket.model;
+package model;
 
-import violetmarket.enums.ItemCategory;
-import violetmarket.enums.ItemCondition;
-import violetmarket.enums.ListingStatus;
+import enums.ItemCategory;
+import enums.ItemCondition;
+import enums.ListingStatus;
 
 import java.time.LocalDate;
 import java.util.UUID;

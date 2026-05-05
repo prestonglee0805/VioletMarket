@@ -1,4 +1,4 @@
-package violetmarket.interfaces;
+package interfaces;
 
 public interface Moderatable {
     void flagListing(String listingId);

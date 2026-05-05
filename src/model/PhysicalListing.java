@@ -1,8 +1,8 @@
-package violetmarket.model;
+package model;
 
-import violetmarket.enums.ItemCategory;
-import violetmarket.enums.ItemCondition;
-import violetmarket.enums.PickupZone;
+import enums.ItemCategory;
+import enums.ItemCondition;
+import enums.PickupZone;
 
 public class PhysicalListing extends Listing {
 

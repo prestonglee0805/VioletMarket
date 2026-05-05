@@ -1,4 +1,4 @@
-package violetmarket.enums;
+package enums;
 
 public enum PickupZone {
     BOBST_LIBRARY("Bobst Library"),

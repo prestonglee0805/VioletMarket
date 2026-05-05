@@ -1,4 +1,4 @@
-package violetmarket.interfaces;
+package interfaces;
 
 public interface Ratable {
     void addRating(double score, String comment, String reviewerId);

@@ -1,4 +1,4 @@
-package violetmarket.model;
+package model;
 
 import java.util.ArrayList;
 import java.util.Collections;

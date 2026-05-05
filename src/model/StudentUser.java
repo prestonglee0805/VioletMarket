@@ -1,7 +1,7 @@
-package violetmarket.model;
+package model;
 
-import violetmarket.exception.InvalidEmailException;
-import violetmarket.interfaces.Ratable;
+import exception.InvalidEmailException;
+import interfaces.Ratable;
 
 import java.util.ArrayList;
 import java.util.Collections;
