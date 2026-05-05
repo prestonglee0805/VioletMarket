@@ -8,7 +8,7 @@ May 2026
 ## Group
 **Preston Lee** — [prestonglee0805](https://github.com/prestonglee0805)
 
-**Tristan Zhen** — [GitHub](https://github.com/tristanz9)
+**Tristan Zhen** — [tristanz9](https://github.com/tristanz9)
 
 ---
 
