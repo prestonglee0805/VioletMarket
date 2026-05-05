@@ -19,23 +19,34 @@ public abstract class User {
         this.joinDate = LocalDate.now();
     }
 
-    // ── Getters ──────────────────────────────────────────────────────────────
+    // Getters
 
-    public String getUserId()    { return userId; }
-    public String getName()      { return name; }
-    public String getNyuEmail()  { return nyuEmail; }
-    public LocalDate getJoinDate() { return joinDate; }
+    public String getUserId(){
+        return userId;
+    }
 
-    public boolean checkPassword(String input) { return password.equals(input); }
+    public String getName(){
+        return name;
+    }
 
-    // ── Abstract ─────────────────────────────────────────────────────────────
+    public String getNyuEmail(){
+        return nyuEmail;
+    }
+
+    public LocalDate getJoinDate(){
+        return joinDate;
+    }
+
+    public boolean checkPassword(String input){
+        return password.equals(input);
+    }
+
+    // Abstract
 
     public abstract String getRole();
 
-    // ── Object ───────────────────────────────────────────────────────────────
-
     @Override
-    public String toString() {
+    public String toString(){
         return String.format("[%s] %s (%s) — joined %s", getRole(), name, nyuEmail, joinDate);
     }
 }
