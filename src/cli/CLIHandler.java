@@ -13,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,7 +33,6 @@ public class CLIHandler {
         loadData();
     }
 
-    // ── Init ─────────────────────────────────────────────────────────────────
 
     private AdminModerator initAdmin(){
         try {
@@ -95,6 +93,7 @@ public class CLIHandler {
                         ItemCondition.valueOf(condition),
                         ItemCategory.valueOf(category),
                         seller.getUserId(),
+                        seller.getNyuEmail(),
                         PickupZone.valueOf(pickupZone),
                         pickupTime);
                     seller.addListing(listing);
@@ -114,8 +113,6 @@ public class CLIHandler {
         return m.find() ? m.group(1).trim() : "";
     }
 
-    // ── Run ──────────────────────────────────────────────────────────────────
-
     public void run(){
         printBanner();
         while (true){
@@ -129,16 +126,14 @@ public class CLIHandler {
         }
     }
 
-    // ── Banner ───────────────────────────────────────────────────────────────
-
     private void printBanner(){
         System.out.println("╔══════════════════════════════════════════╗");
         System.out.println("║         V I O L E T M A R K E T          ║");
-        System.out.println("║      NYU Student Peer-to-Peer Market      ║");
+        System.out.println("║      NYU Student Peer-to-Peer Market     ║");
         System.out.println("╚══════════════════════════════════════════╝");
     }
 
-    // ── Auth ─────────────────────────────────────────────────────────────────
+    //Login Auth
 
     private void showAuthMenu(){
         System.out.println("\n1. Login");
@@ -207,38 +202,49 @@ public class CLIHandler {
         }
     }
 
-    // ── Student Menu ─────────────────────────────────────────────────────────
+    // student main menu
 
     private void showStudentMenu(){
         StudentUser student = (StudentUser) currentUser;
         System.out.println("\n--- VioletMarket | " + student.getName()
             + " | Wallet: $" + String.format("%.2f", student.getWallet().getBalance()) + " ---");
         System.out.println("1. Browse Listings");
-        System.out.println("2. Search / Filter Listings");
-        System.out.println("3. Post a Listing");
-        System.out.println("4. My Listings");
-        System.out.println("5. Wallet");
-        System.out.println("6. Wishlist");
-        System.out.println("7. Rate a User");
+        System.out.println("2. Post a Listing");
+        System.out.println("3. My Listings");
+        System.out.println("4. Wallet");
+        System.out.println("5. Wishlist");
+        System.out.println("6. View Purchases");
         System.out.println("0. Logout");
         System.out.print("> ");
         String choice = scanner.nextLine().trim();
         switch (choice){
             case "1" -> browseListings(student);
-            case "2" -> searchMenu(student);
-            case "3" -> postListing(student);
-            case "4" -> myListings(student);
-            case "5" -> walletMenu(student);
-            case "6" -> wishlistMenu(student);
-            case "7" -> rateUser(student);
+            case "2" -> postListing(student);
+            case "3" -> myListings(student);
+            case "4" -> walletMenu(student);
+            case "5" -> wishlistMenu(student);
+            case "6" -> viewPurchases(student);
             case "0" -> { currentUser = null; System.out.println("Logged out."); }
             default  -> System.out.println("Invalid option.");
         }
     }
 
-    // ── Browse ───────────────────────────────────────────────────────────────
+    // browse catalog of items
 
     private void browseListings(StudentUser student){
+        System.out.println("\n--- Browse Listings ---");
+        System.out.println("1. View All Active Listings");
+        System.out.println("2. Search & Filter");
+        System.out.println("0. Back");
+        System.out.print("> ");
+        String choice = scanner.nextLine().trim();
+        switch (choice){
+            case "1" -> viewAllActiveListings(student);
+            case "2" -> searchMenu(student);
+        }
+    }
+
+    private void viewAllActiveListings(StudentUser student){
         List<Listing> active = catalog.getActiveListings();
         if (active.isEmpty()){
             System.out.println("No active listings.");
@@ -263,6 +269,7 @@ public class CLIHandler {
         System.out.println("Category:    " + listing.getCategory());
         System.out.println("Condition:   " + listing.getCondition());
         System.out.println("Status:      " + listing.getStatus());
+        System.out.println("Seller:      " + listing.getSellerEmail());
         System.out.println("Posted:      " + listing.getDatePosted());
         if (listing instanceof PhysicalListing pl){
             System.out.println("Pickup Zone: " + pl.getPickupZone());
@@ -288,7 +295,7 @@ public class CLIHandler {
         }
     }
 
-    // ── Purchase ─────────────────────────────────────────────────────────────
+    //Make a purchase
 
     private void purchaseItem(Listing listing, StudentUser buyer){
         if (!listing.isActive()){
@@ -320,7 +327,13 @@ public class CLIHandler {
 
             Transaction tx = new Transaction(listing, buyer, seller, listing.getPrice(), zone);
             catalog.addTransaction(tx);
-            buyer.getWishList().removeListing(listing.getListingId());
+
+            buyer.addPurchase(tx);
+
+            // Remove from every user's wishlist
+            for (StudentUser u : users){
+                u.getWishList().removeListing(listing.getListingId());
+            }
 
             System.out.println("\nPurchase successful!");
             System.out.println("Transaction ID: " + tx.getTransactionId());
@@ -332,7 +345,7 @@ public class CLIHandler {
         }
     }
 
-    // ── Search ───────────────────────────────────────────────────────────────
+    // Search display
 
     private void searchMenu(StudentUser student){
         System.out.println("\n--- Search & Filter ---");
@@ -381,7 +394,7 @@ public class CLIHandler {
         viewListingDetail(results.get(idx - 1), student);
     }
 
-    // ── Post Listing ─────────────────────────────────────────────────────────
+    // Posting a listing
 
     private void postListing(StudentUser student){
         System.out.println("\n--- Post a Listing (enter 0 at any prompt to cancel) ---");
@@ -413,14 +426,14 @@ public class CLIHandler {
 
         PhysicalListing listing = new PhysicalListing(
             title, desc, price, condition, category,
-            student.getUserId(), zone, pickupTime);
+            student.getUserId(), student.getNyuEmail(), zone, pickupTime);
         student.addListing(listing);
         catalog.addListing(listing);
 
         System.out.println("\nListing posted! ID: " + listing.getListingId());
     }
 
-    // ── My Listings ──────────────────────────────────────────────────────────
+    // My Listings
 
     private void myListings(StudentUser student){
         List<Listing> mine = student.getListings();
@@ -440,14 +453,32 @@ public class CLIHandler {
 
     private void manageMyListing(Listing listing){
         System.out.println("\n" + listing);
-        System.out.println("1. Edit Price");
-        System.out.println("2. Mark as Sold");
-        System.out.println("3. Remove Listing");
+        System.out.println("1. Edit Title");
+        System.out.println("2. Edit Description");
+        System.out.println("3. Edit Price");
+        System.out.println("4. Mark as Sold");
+        System.out.println("5. Remove Listing");
         System.out.println("0. Back");
         System.out.print("> ");
         String choice = scanner.nextLine().trim();
         switch (choice){
             case "1" -> {
+                System.out.print("New title: ");
+                String newTitle = scanner.nextLine().trim();
+                if (!newTitle.isEmpty()){
+                    listing.setTitle(newTitle);
+                    System.out.println("Title updated.");
+                }
+            }
+            case "2" -> {
+                System.out.print("New description: ");
+                String newDesc = scanner.nextLine().trim();
+                if (!newDesc.isEmpty()){
+                    listing.setDescription(newDesc);
+                    System.out.println("Description updated.");
+                }
+            }
+            case "3" -> {
                 System.out.print("New price: $");
                 try {
                     double newPrice = Double.parseDouble(scanner.nextLine().trim());
@@ -457,18 +488,18 @@ public class CLIHandler {
                     System.out.println("Invalid price.");
                 }
             }
-            case "2" -> {
+            case "4" -> {
                 listing.setStatus(ListingStatus.SOLD);
                 System.out.println("Listing marked as sold.");
             }
-            case "3" -> {
+            case "5" -> {
                 catalog.removeListing(listing.getListingId());
                 System.out.println("Listing removed.");
             }
         }
     }
 
-    // ── Wallet ───────────────────────────────────────────────────────────────
+    // Wallet
 
     private void walletMenu(StudentUser student){
         System.out.printf("%n--- Wallet | Balance: $%.2f ---%n",
@@ -504,7 +535,7 @@ public class CLIHandler {
         }
     }
 
-    // ── Wishlist ─────────────────────────────────────────────────────────────
+    // Wishlist
 
     private void wishlistMenu(StudentUser student){
         List<Listing> saved = student.getWishList().getSavedListings();
@@ -543,110 +574,82 @@ public class CLIHandler {
         }
     }
 
-    // ── Rate User ────────────────────────────────────────────────────────────
+    //View purchases functionality
 
-    private void rateUser(StudentUser reviewer){
-        System.out.print("Enter email of user to rate (0 to cancel): ");
-        String email = scanner.nextLine().trim();
-        if (email.equals("0")) { System.out.println("Cancelled."); return; }
-        StudentUser target = findStudentByEmail(email);
-        if (target == null){
-            System.out.println("User not found.");
+    private void viewPurchases(StudentUser student){
+        List<Transaction> purchases = student.getPurchases();
+        System.out.println("\n--- My Purchases (" + purchases.size() + ") ---");
+        if (purchases.isEmpty()){
+            System.out.println("You have not purchased anything yet.");
             return;
         }
-        if (target.getUserId().equals(reviewer.getUserId())){
-            System.out.println("You cannot rate yourself.");
-            return;
+        for (int i = 0; i < purchases.size(); i++){
+            Transaction tx = purchases.get(i);
+            System.out.printf("%d. [%s] \"%s\" — $%.2f | Seller: %s | Pickup: %s | %s%n",
+                i + 1,
+                tx.getTransactionId(),
+                tx.getListingRef().getTitle(),
+                tx.getAgreedPrice(),
+                tx.getListingRef().getSellerEmail(),
+                tx.getPickupZone(),
+                tx.getCompletedAt().toLocalDate());
         }
-        System.out.print("Score (1-5): ");
-        double score;
-        try {
-            score = Double.parseDouble(scanner.nextLine().trim());
-        } catch (NumberFormatException e){
-            System.out.println("Invalid score.");
-            return;
-        }
-        System.out.print("Comment: ");
-        String comment = scanner.nextLine().trim();
-        target.addRating(score, comment, reviewer.getUserId());
-        System.out.printf("Rating submitted for %s. Their average: %.1f/5.0%n",
-            target.getName(), target.getAverageRating());
     }
 
     // ── Admin Menu ───────────────────────────────────────────────────────────
 
     private void showAdminMenu(){
-        System.out.println("\n--- ADMIN PANEL | Move-Out Mode: "
-            + (admin.isMoveOutModeActive() ? "ON" : "OFF") + " ---");
-        System.out.println("1. View All Listings");
-        System.out.println("2. Flag a Listing");
-        System.out.println("3. Delete a Listing");
-        System.out.println("4. View All Users");
-        System.out.println("5. Ban / Unban User");
-        System.out.println("6. Toggle Move-Out Mode");
-        System.out.println("7. View All Transactions");
+        System.out.println("\n--- ADMIN PANEL ---");
+        System.out.println("1. Delete a Listing");
+        System.out.println("2. Remove a User");
         System.out.println("0. Logout");
         System.out.print("> ");
         String choice = scanner.nextLine().trim();
         switch (choice){
-            case "1" -> {
-                List<Listing> all = catalog.getAllListings();
-                System.out.println("\n--- All Listings (" + all.size() + ") ---");
-                if (all.isEmpty()) { System.out.println("None."); return; }
-                all.forEach(System.out::println);
-            }
-            case "2" -> {
-                System.out.print("Listing ID to flag: ");
-                String id = scanner.nextLine().trim().toUpperCase();
-                Optional<Listing> found = catalog.findById(id);
-                if (found.isEmpty()){
-                    System.out.println("Listing not found.");
-                } else {
-                    catalog.flagListing(id);
-                    admin.flagListing(id);
-                    System.out.println("Listing " + id + " flagged.");
-                }
-            }
-            case "3" -> {
-                System.out.print("Listing ID to delete: ");
-                String id = scanner.nextLine().trim().toUpperCase();
-                boolean removed = catalog.removeListing(id);
-                System.out.println(removed ? "Listing " + id + " deleted." : "Listing not found.");
-            }
-            case "4" -> {
-                System.out.println("\n--- All Users (" + users.size() + ") ---");
-                users.forEach(u -> System.out.println(u + (u.isBanned() ? " [BANNED]" : "")));
-            }
-            case "5" -> {
-                System.out.print("User email: ");
-                String email = scanner.nextLine().trim();
-                StudentUser target = findStudentByEmail(email);
-                if (target == null){
-                    System.out.println("User not found.");
-                } else if (target.isBanned()){
-                    admin.unbanUser(target);
-                    System.out.println(target.getName() + " unbanned.");
-                } else {
-                    admin.banUser(target);
-                    System.out.println(target.getName() + " banned.");
-                }
-            }
-            case "6" -> {
-                admin.setMoveOutModeActive(!admin.isMoveOutModeActive());
-                System.out.println("Move-Out Mode: " + (admin.isMoveOutModeActive() ? "ACTIVATED" : "DEACTIVATED"));
-            }
-            case "7" -> {
-                List<Transaction> txs = catalog.getTransactions();
-                System.out.println("\n--- Transactions (" + txs.size() + ") ---");
-                if (txs.isEmpty()) { System.out.println("None."); return; }
-                txs.forEach(System.out::println);
-            }
+            case "1" -> adminDeleteListing();
+            case "2" -> adminRemoveUser();
             case "0" -> { currentUser = null; System.out.println("Admin logged out."); }
             default  -> System.out.println("Invalid option.");
         }
     }
 
-    // ── Enum Selectors ───────────────────────────────────────────────────────
+    private void adminDeleteListing(){
+        List<Listing> all = catalog.getAllListings();
+        if (all.isEmpty()){ System.out.println("No listings."); return; }
+        System.out.println("\n--- All Listings (" + all.size() + ") ---");
+        all.forEach(System.out::println);
+        System.out.print("\nListing ID to delete (0 to cancel): ");
+        String id = scanner.nextLine().trim().toUpperCase();
+        if (id.equals("0")) return;
+        // Also remove from every user's wishlist before deleting
+        for (StudentUser u : users){
+            u.getWishList().removeListing(id);
+        }
+        boolean removed = catalog.removeListing(id);
+        System.out.println(removed ? "Listing " + id + " deleted." : "Listing not found.");
+    }
+
+    private void adminRemoveUser(){
+        if (users.isEmpty()){ System.out.println("No users."); return; }
+        System.out.println("\n--- All Users (" + users.size() + ") ---");
+        users.forEach(System.out::println);
+        System.out.print("\nUser email to remove (0 to cancel): ");
+        String email = scanner.nextLine().trim();
+        if (email.equals("0")) return;
+        StudentUser target = findStudentByEmail(email);
+        if (target == null){ System.out.println("User not found."); return; }
+        // Remove all their listings from every wishlist, then from catalog
+        for (Listing l : target.getListings()){
+            for (StudentUser u : users){
+                u.getWishList().removeListing(l.getListingId());
+            }
+            catalog.removeListing(l.getListingId());
+        }
+        users.remove(target);
+        System.out.println(target.getName() + " (" + target.getNyuEmail() + ") removed.");
+    }
+
+    //for enum
 
     private ItemCategory selectCategory(){
         ItemCategory[] values = ItemCategory.values();
@@ -690,8 +693,7 @@ public class CLIHandler {
         return values[idx - 1];
     }
 
-    // ── Helpers ──────────────────────────────────────────────────────────────
-
+    // helper functions
     private StudentUser findStudentById(String userId){
         return users.stream()
             .filter(u -> u.getUserId().equals(userId))

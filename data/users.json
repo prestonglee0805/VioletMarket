@@ -10,5 +10,35 @@
     "email": "tcz2003@nyu.edu",
     "password": "password123",
     "walletBalance": 50.00
+  },
+  {
+    "name": "Alice Chen",
+    "email": "ac1234@nyu.edu",
+    "password": "password123",
+    "walletBalance": 75.00
+  },
+  {
+    "name": "Brian Kim",
+    "email": "bk5678@nyu.edu",
+    "password": "password123",
+    "walletBalance": 120.00
+  },
+  {
+    "name": "Casey Davis",
+    "email": "cd9012@nyu.edu",
+    "password": "password123",
+    "walletBalance": 30.00
+  },
+  {
+    "name": "Daniel Park",
+    "email": "dp3456@nyu.edu",
+    "password": "password123",
+    "walletBalance": 90.00
+  },
+  {
+    "name": "Emma Torres",
+    "email": "et7890@nyu.edu",
+    "password": "password123",
+    "walletBalance": 60.00
   }
 ]
