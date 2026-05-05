@@ -18,7 +18,6 @@ public class Wallet {
     }
 
     // Operations
-
     public void deposit(double amount){
         if (amount <= 0) throw new IllegalArgumentException("Deposit amount must be positive.");
         balance += amount;
@@ -37,17 +36,14 @@ public class Wallet {
     }
 
     // Getters
-
     public double getBalance(){
         return balance;
     }
-
     public List<String> getTransactionHistory(){
         return Collections.unmodifiableList(transactionHistory);
     }
 
     // Helpers
-
     private void log(String type, String sign, double amount){
         transactionHistory.add(String.format(
             "[%s] %s %s$%.2f  |  Balance: $%.2f",

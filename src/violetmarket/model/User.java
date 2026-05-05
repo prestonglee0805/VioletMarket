@@ -13,7 +13,7 @@ public abstract class User {
 
     public User(String name, String nyuEmail, String password) {
         this.userId   = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-        this.name     = name;
+        this.name = name;
         this.nyuEmail = nyuEmail;
         this.password = password;
         this.joinDate = LocalDate.now();

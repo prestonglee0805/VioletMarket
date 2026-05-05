@@ -18,16 +18,15 @@ public class Transaction {
     public Transaction(Listing listingRef, StudentUser buyerRef, StudentUser sellerRef,
                        double agreedPrice, PickupZone pickupZone) {
         this.transactionId = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-        this.listingRef    = listingRef;
-        this.buyerRef      = buyerRef;
-        this.sellerRef     = sellerRef;
-        this.agreedPrice   = agreedPrice;
-        this.pickupZone    = pickupZone;
-        this.completedAt   = LocalDateTime.now();
+        this.listingRef = listingRef;
+        this.buyerRef = buyerRef;
+        this.sellerRef = sellerRef;
+        this.agreedPrice = agreedPrice;
+        this.pickupZone = pickupZone;
+        this.completedAt = LocalDateTime.now();
     }
 
     // Getters
-
     public String getTransactionId(){
         return transactionId;
     }

@@ -19,10 +19,10 @@ public class StudentUser extends User implements Ratable {
             throws InvalidEmailException {
         super(name, nyuEmail, password);
         if (!nyuEmail.endsWith("@nyu.edu")) throw new InvalidEmailException(nyuEmail);
-        this.wallet   = new Wallet();
+        this.wallet = new Wallet();
         this.wishList = new WishList(this.userId);
         this.listings = new ArrayList<>();
-        this.ratings  = new ArrayList<>();
+        this.ratings = new ArrayList<>();
         this.isBanned = false;
     }
 
