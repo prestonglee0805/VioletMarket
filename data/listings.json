@@ -1,0 +1,122 @@
+[
+  {
+    "title": "Calculus Textbook",
+    "description": "Stewart Calculus 8th Edition minimal highlights",
+    "price": 25.00,
+    "condition": "GOOD",
+    "category": "TEXTBOOKS",
+    "sellerEmail": "ac1234@nyu.edu",
+    "pickupZone": "BOBST_LIBRARY",
+    "pickupTime": "Weekdays after 3pm"
+  },
+  {
+    "title": "Organic Chemistry Textbook",
+    "description": "Clayden 2nd Edition some annotations",
+    "price": 40.00,
+    "condition": "FAIR",
+    "category": "TEXTBOOKS",
+    "sellerEmail": "ac1234@nyu.edu",
+    "pickupZone": "KIMMEL_CENTER",
+    "pickupTime": "Anytime weekdays"
+  },
+  {
+    "title": "IKEA Desk Lamp",
+    "description": "White barely used perfect for dorm",
+    "price": 10.00,
+    "condition": "NEW",
+    "category": "DORM_FURNITURE",
+    "sellerEmail": "ac1234@nyu.edu",
+    "pickupZone": "THIRD_NORTH",
+    "pickupTime": "Anytime"
+  },
+  {
+    "title": "MacBook Charger 65W",
+    "description": "USB-C works perfectly",
+    "price": 15.00,
+    "condition": "GOOD",
+    "category": "ELECTRONICS",
+    "sellerEmail": "bk5678@nyu.edu",
+    "pickupZone": "KIMMEL_CENTER",
+    "pickupTime": "Weekends"
+  },
+  {
+    "title": "Bose Headphones QC45",
+    "description": "Great sound minor wear on ear pads",
+    "price": 80.00,
+    "condition": "GOOD",
+    "category": "ELECTRONICS",
+    "sellerEmail": "bk5678@nyu.edu",
+    "pickupZone": "PAULSON_CENTER",
+    "pickupTime": "Evenings after 6pm"
+  },
+  {
+    "title": "Free Futon",
+    "description": "Moving out free to a good home",
+    "price": 0.00,
+    "condition": "FAIR",
+    "category": "FREE_ITEMS",
+    "sellerEmail": "bk5678@nyu.edu",
+    "pickupZone": "LIPTON_HALL",
+    "pickupTime": "This weekend only"
+  },
+  {
+    "title": "NYU Crewneck Sweatshirt",
+    "description": "Size M navy blue worn twice",
+    "price": 20.00,
+    "condition": "NEW",
+    "category": "CLOTHING",
+    "sellerEmail": "cd9012@nyu.edu",
+    "pickupZone": "BRITTANY_HALL",
+    "pickupTime": "After 5pm weekdays"
+  },
+  {
+    "title": "Trek FX3 Bike",
+    "description": "7-speed commuter bike barely used",
+    "price": 150.00,
+    "condition": "GOOD",
+    "category": "BIKES_SCOOTERS",
+    "sellerEmail": "dp3456@nyu.edu",
+    "pickupZone": "PAULSON_CENTER",
+    "pickupTime": "Weekend mornings"
+  },
+  {
+    "title": "Mini Fridge 3.2 cu ft",
+    "description": "Perfect dorm size runs quietly",
+    "price": 45.00,
+    "condition": "GOOD",
+    "category": "DORM_FURNITURE",
+    "sellerEmail": "dp3456@nyu.edu",
+    "pickupZone": "UNIVERSITY_HALL",
+    "pickupTime": "Weekends only"
+  },
+  {
+    "title": "Free Desk Fan",
+    "description": "Works fine just upgrading",
+    "price": 0.00,
+    "condition": "FAIR",
+    "category": "FREE_ITEMS",
+    "sellerEmail": "et7890@nyu.edu",
+    "pickupZone": "CARLYLE_COURT",
+    "pickupTime": "Anytime"
+  },
+  {
+    "title": "Electric Razor Scooter",
+    "description": "Charged and ready range about 15 miles",
+    "price": 120.00,
+    "condition": "GOOD",
+    "category": "BIKES_SCOOTERS",
+    "sellerEmail": "et7890@nyu.edu",
+    "pickupZone": "PALLADIUM",
+    "pickupTime": "After 4pm"
+  },
+  {
+    "title": "Winter Puffer Jacket",
+    "description": "Size L worn one season still warm",
+    "price": 35.00,
+    "condition": "GOOD",
+    "category": "CLOTHING",
+    "sellerEmail": "et7890@nyu.edu",
+    "pickupZone": "THIRD_NORTH",
+    "pickupTime": "Weekday mornings"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Alice Chen",
+    "email": "ac1234@nyu.edu",
+    "password": "password123",
+    "walletBalance": 200.00
+  },
+  {
+    "name": "Bob Kim",
+    "email": "bk5678@nyu.edu",
+    "password": "password123",
+    "walletBalance": 50.00
+  },
+  {
+    "name": "Carol Davis",
+    "email": "cd9012@nyu.edu",
+    "password": "password123",
+    "walletBalance": 150.00
+  },
+  {
+    "name": "David Park",
+    "email": "dp3456@nyu.edu",
+    "password": "password123",
+    "walletBalance": 300.00
+  },
+  {
+    "name": "Emma Torres",
+    "email": "et7890@nyu.edu",
+    "password": "password123",
+    "walletBalance": 75.00
+  }
+]
