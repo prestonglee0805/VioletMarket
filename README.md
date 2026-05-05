@@ -43,14 +43,12 @@ make run
 
 | Name         | Email               |
 |--------------|---------------------|
-| Alice Chen   | ac1234@nyu.edu      |
-| Bob Kim      | bk5678@nyu.edu      |
-| Carol Davis  | cd9012@nyu.edu      |
-| David Park   | dp3456@nyu.edu      |
-| Emma Torres  | et7890@nyu.edu      |
+| Preston Lee  |  pgl8973@nyu.edu    |
+| Tristan Zhen |  tcz2003@nyu.edu    |
 
 Student credentials can be updated by editing `data/users.json`.
-Preloaded listings can be updated by editing `data/listings.json`.
+Preloaded listings can be updated by editing `data/listings.json`. 
+Both pre-loaded credentials contain different wallet balance amounts.
 
 ---
 
@@ -59,8 +57,8 @@ Preloaded listings can be updated by editing `data/listings.json`.
 ```
 OOP-final/
 ├── src/
-│   ├── cli/          # Entry point and CLI handler
-│   ├── model/        # Core classes (User, Listing, Wallet, etc.)
+│   ├── cli/          # CLI handler
+│   ├── model/        # Core classes
 │   ├── enums/        # ItemCategory, ItemCondition, ListingStatus, PickupZone
 │   ├── interfaces/   # Searchable, Moderatable, Ratable
 │   └── exception/    # InvalidEmailException, InsufficientFundsException
